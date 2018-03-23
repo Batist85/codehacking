@@ -3,6 +3,16 @@
 @section('content')
   <h1>Users</h1>
 
+  @if(Session::has('deleted_user'))
+      <p class="bg bg-danger">{{session('deleted_user')}}</p>
+  @endif
+  @if(Session::has('updated_user'))
+      <p class="bg bg-primary">{{session('updated_user')}}</p>
+  @endif
+  @if(Session::has('created_user'))
+      <p class="bg bg-success">{{session('created_user')}}</p>
+  @endif
+
   <table class='table table-hover'>
     <thead class="thead-inverse">
       <tr>
