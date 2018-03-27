@@ -14,6 +14,8 @@
             <th>Content</th>
             <th>Created</th>
             <th>Updated</th>
+            <th>View Post</th>
+            <th>Comments</th>
         </thead>
         <tbody>
 
@@ -28,6 +30,8 @@
                         <td>{{str_limit($post->body, 20)}}</td>
                         <td>{{$post->created_at->diffForhumans()}}</td>
                         <td>{{$post->updated_at->diffForhumans()}}</td>
+                        <td><a href="{{route('home.post', $post->id)}}">View Post</a></td>
+                        <td><a href="{{route('admin.comments.show', $post->id)}}">View Comments</a></td>
                     </tr>
                 @endforeach
             @endif

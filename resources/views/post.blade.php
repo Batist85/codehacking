@@ -2,8 +2,6 @@
 
 @section('content')
 
-  <h1>Post</h1>
-
   <!-- Blog Post -->
 
   <!-- Title -->
@@ -31,18 +29,31 @@
 
   <hr>
 
+  @if(Session::has('comment_message'))
+    {{session('comment_message')}}
+  @endif
   <!-- Blog Comments -->
 
   <!-- Comments Form -->
   <div class="well">
     <h4>Leave a Comment:</h4>
-    <form role="form">
-      <div class="form-group">
-        <textarea class="form-control" rows="3"></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-  </div>
+
+    {!! Form::open(['method'=>'POST', 'action'=> 'PostCommentsController@store', 'class'=>'form-group']) !!}
+
+    <input type="hidden" name="post_id" value="{{$post->id}}">
+
+                <div class="form-group">
+                    {!! Form::label('body', ' ') !!}
+                    {!! Form::textarea('body', null, ['class'=>'form-control', 'rows'=>'3']) !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::submit('Submit', ['class'=>'btn btn-primary']) !!}
+                </div>
+
+    {!! Form::close() !!}
+
+
 
   <hr>
 
@@ -86,5 +97,7 @@
       <!-- End Nested Comment -->
     </div>
   </div>
+  </div>
 
 @stop
+
