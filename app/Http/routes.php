@@ -28,7 +28,7 @@ Route::group(['middleware'=>'admin'], function() {
     Route::resource('admin/categories', 'AdminCategoriesController');
     Route::resource('admin/media', 'AdminMediaController');
     Route::resource('admin/comments', 'PostCommentsController');
-    Route::resource('admin/comment/replies', 'CommentRepliesController');
+    Route::resource('admin/comments/replies', 'CommentRepliesController');
 });
 
 Route::group(['middleware'=>'auth'], function() {
