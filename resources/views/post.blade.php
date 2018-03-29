@@ -36,6 +36,7 @@
 
   @if(Auth::check())
 
+
     <!-- Comments Form -->
     <div class="well">
       <h4>Leave a Comment:</h4>
@@ -68,7 +69,7 @@
     @foreach($comments->reverse() as $comment)
       <div class=" media">
         <a class="pull-left" href="#">
-          <img height="64" class="media-object" src="{{$comment->photo}}" alt="profile picture">
+          <img height="64" class="media-object" src="{{Auth::user()->gravatar}}" alt="profile picture">
         </a>
         <div class="media-body">
           <h4 class="media-heading">{{$comment->author}}
@@ -82,6 +83,8 @@
           @if(count($comment->replies) > 0)
             @foreach($comment->replies as $reply)
 
+              @if($reply->is_active == 1)
+
                 <div class="media">
                   <a class="pull-left" href="#">
                     <img height="50" class="media-object" src="{{$reply->photo}}" alt="">
@@ -94,14 +97,11 @@
                   </div>
 
 
-
-
-
-
-
                 </div>
-                @endforeach
-                @endif
+
+              @endif
+            @endforeach
+          @endif
 
           <div class="comment-reply-container">
             <button class="toggle-reply btn btn-primary pull-right">Reply</button>
@@ -124,9 +124,16 @@
 
 
         </div>
+
+
       </div>
 
+
+
+
     @endforeach
+          @else
+           <h3 class="text-center">no comments ...yet. Be the first to comment :)</h3>
 
   @endif
 

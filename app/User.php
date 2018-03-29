@@ -39,7 +39,19 @@ class User extends Authenticatable
         return false;
     }
 
+//    public function isAuthor() {
+//        if($this->role->name == 'author' && $this->is_active == 1) {
+//            return true;
+//        }
+//        return false;
+//    }
+
     public function posts() {
         return $this->hasMany('App\Post');
+    }
+
+    public function getGravatarAttribute() {
+        $hash = md5(strtolower(trim($this->attribute['email']))) . "?d=mm";
+        return "http://www.gravatar.com/avatar/$hash";
     }
 }

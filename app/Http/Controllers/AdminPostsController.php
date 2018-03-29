@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
+
 use App\Category;
 use App\Photo;
 use App\Post;
@@ -20,10 +22,16 @@ class AdminPostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+//    public function index()
+//    {
+//        //
+//        $posts = Post::all();
+//        return view('admin.posts.index', compact('posts'));
+//    }
     public function index()
     {
         //
-        $posts = Post::all();
+        $posts = Post::paginate(2);
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -123,9 +131,16 @@ class AdminPostsController extends Controller
         return redirect('/admin/posts');
     }
 
-    public function post($id) {
-        $post = Post::findOrFail($id);
+//    public function post($id) {
+//        $post = Post::findOrFail($id);
+//        $comments = $post->comments()->whereIsActive(1)->get();
+//        return view('post', compact('post', 'comments'));
+//    }
+
+    public function post($slug) {
+        $post = Post::where('slug', $slug)->first() ?: Post::findOrFail((int)$slug);
         $comments = $post->comments()->whereIsActive(1)->get();
         return view('post', compact('post', 'comments'));
     }
+
 }
